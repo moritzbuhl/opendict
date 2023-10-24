@@ -56,7 +56,8 @@ Only lookup index etries that exactly match the given
 .It Fl m
 Match
 .Ar words
-in the index of the dictionary. This option is used by default.
+in the index of the dictionary.
+This option is used by default.
 .It Fl V
 Do not validate the index for correctness before matching words to
 reduce the overhead per
@@ -65,8 +66,9 @@ invocation.
 By default
 .Nm
 validates the index for correctness before looking up words.
+.El
 .Sh FILES
-.Bl -tag -width "/usr/local/freedict/foo-bar/foo-bar.dict.dzXX" -compact
+.Bl -tag -width Ds
 .It Pa /usr/local/freedict/foo-bar/foo-bar.index
 Index file with words of 'foo' and references to words of 'bar'.
 .It Pa /usr/local/freedict/foo-bar/foo-bar.dict.dz
@@ -74,6 +76,7 @@ Database file containing definitions of 'bar'.
 A
 .Xr gzip 1
 file with an additional random access header.
+.El
 .Sh EXAMPLES
 Match all index entries for the English word 'ham' in the 'eng-fra'
 dictionary using an exact match:
