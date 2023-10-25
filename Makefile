@@ -1,5 +1,3 @@
-NOMAN= yes
-
 #DEBUG=	-g -DDEBUG=3 -O0
 CFLAGS+= -Wall -I${.CURDIR}
 
