@@ -9,6 +9,20 @@ trap cleanup EXIT
 
 ncpu=$(sysctl -n hw.ncpuonline)
 
+echo check SYNOPSIS and usage are equal
+synopsis=$(mandoc -Tmarkdown dict.1  | \
+    sed -n '/^# SYNOPSIS/{x;d;};H;/^# DESCRIPTION/{x;p;};' | \
+    sed -e 's/[\*\\]//g' -e 's/&nbsp;/ /g' -e 's/^#.*//g' | \
+    tail +2 | tr '\n' ' ' | cut -d# -f1)
+synopsis=${synopsis%%+( )}
+usage=$(./obj/dict -h 2>&1 | cut -d: -f2 | tail +2)
+usage=${usage%%+( )}
+if [ "$usage" != "$synopsis" ]; then
+	echo "usage != synopsis: '$usage' != '$synopsis'"
+	exit 1
+fi
+echo .
+
 echo verify all index files
 for f in /usr/local/freedict/*; do
 	b=$(basename $f);
