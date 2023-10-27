@@ -95,7 +95,7 @@ struct gz_stream {
 	u_int16_t	 ra_ccount;
 	u_int16_t	*ra_chunks;
 	u_int64_t	*ra_offset;
-	char		*o_buf;		/* to keep a single ra_clen buffer */
+	u_int8_t	*o_buf;		/* to keep a single ra_clen buffer */
 } gz_stream;
 
 static const u_char gz_magic[2] = {0x1f, 0x8b}; /* gzip magic header */
