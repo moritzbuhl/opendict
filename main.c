@@ -17,10 +17,8 @@
 #include <sys/mman.h>
 #include <sys/queue.h>
 
-#include <assert.h>
 #include <ctype.h>
 #include <err.h>
-#include <fcntl.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>

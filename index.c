@@ -18,7 +18,6 @@
 #include <sys/stat.h>
 #include <sys/queue.h>
 
-#include <assert.h>
 #include <err.h>
 #include <fcntl.h>
 #include <stdint.h>
