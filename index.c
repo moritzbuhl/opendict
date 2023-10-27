@@ -140,7 +140,7 @@ index_parse_line(const char *line, struct dc_index_entry *e)
 	return e;
 }
 
-const char *
+static const char *
 index_prev(const char *cur, const struct dc_index *idx)
 {
 	const char *base = idx->data;
@@ -155,7 +155,7 @@ index_prev(const char *cur, const struct dc_index *idx)
 	return p;
 }
 
-const char *
+static const char *
 index_next(const char *cur, const struct dc_index *idx)
 {
 	const char *end = idx->data + idx->size;
