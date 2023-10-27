@@ -76,7 +76,7 @@ define(struct dc_database *db, struct dc_index_list *l)
 		if (e->match == NULL)
 			break;
 		if ((r = database_lookup(e, db, buf)) == -1) {
-			errx(1, "database_lookup failed for: %.*s\n",
+			errx(1, "dictionary lookup failed for: %.*s\n",
 			    e->match_len, e->match);
 		} else {
 			printf("- %.*s", r, buf);
