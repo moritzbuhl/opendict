@@ -21,6 +21,7 @@
 #include <assert.h>
 #include <err.h>
 #include <fcntl.h>
+#include <stdint.h>
 #include <string.h>
 
 #include "dict.h"
