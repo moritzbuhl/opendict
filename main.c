@@ -30,6 +30,7 @@
 #include "index.h"
 
 #define MAX_RESULTS	1000
+#define _FREEDICT_PATH	"/usr/local/freedict"
 
 static __dead void
 usage(void)
@@ -93,17 +94,20 @@ main(int argc, char *argv[])
 	struct dc_index_list list;
 	struct dc_index_entry *res;
 	char *db_path = NULL, *idx_path = NULL;
-	char *lookup;
+	char *lookup, *dictpath;
 	int ch, i;
 	int Vflag = 0, dflag = 0, eflag = 0, mflag = 0;
+
+	if ((dictpath = getenv("DICT_PATH")) == NULL)
+		dictpath = _FREEDICT_PATH;
 
 	while ((ch = getopt(argc, argv, "D:Vdem")) != -1) {
 		switch (ch) {
 		case 'D':
-			asprintf(&db_path, "/usr/local/freedict/%s/%s.dict.dz",
-			    optarg, optarg);
-			asprintf(&idx_path, "/usr/local/freedict/%s/%s.index",
-			    optarg, optarg);
+			asprintf(&db_path, "%s/%s/%s.dict.dz",
+			    dictpath, optarg, optarg);
+			asprintf(&idx_path, "%s/%s/%s.index",
+			    dictpath, optarg, optarg);
 			break;
 		case 'V':
 			Vflag = 1;
