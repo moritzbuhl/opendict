@@ -75,6 +75,8 @@ define(struct dc_database *db, struct dc_index_list *l)
 	SLIST_FOREACH(e, l, entries) {
 		if (e->match == NULL)
 			break;
+		if (e->def_len > LOOKUP_MAX)
+			errx(1, "definition is too large.");
 		if ((r = database_lookup(e, db, buf)) == -1) {
 			errx(1, "dictionary lookup failed for: %.*s\n",
 			    e->match_len, e->match);
