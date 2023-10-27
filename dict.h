@@ -14,8 +14,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include <sys/queue.h>
-
 #define WORD_MAX	4095
 #define LOOKUP_MAX	4095
 

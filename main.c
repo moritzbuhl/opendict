@@ -15,6 +15,8 @@
  */
 
 #include <sys/mman.h>
+#include <sys/queue.h>
+
 #include <assert.h>
 #include <ctype.h>
 #include <err.h>

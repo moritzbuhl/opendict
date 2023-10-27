@@ -60,6 +60,7 @@
 */
 
 #include <sys/mman.h>
+#include <sys/queue.h>
 #include <sys/stat.h>
 #include <sys/uio.h>
 
