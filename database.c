@@ -109,7 +109,7 @@ int
 database_open(int fd, struct dc_database *db)
 {
 	gz_stream *s;
-	if((s = gz_ropen(fd)) == NULL)
+	if ((s = gz_ropen(fd)) == NULL)
 		return -1;
 
 	db->data = s;
@@ -179,8 +179,8 @@ get_int16(gz_stream *s)
 {
 	u_int16_t x;
 
-	x  = ((u_int16_t)(get_byte(s) & 0xff));
-	x |= ((u_int16_t)(get_byte(s) & 0xff))<<8;
+	x = ((u_int16_t)(get_byte(s) & 0xff));
+	x |= ((u_int16_t)(get_byte(s) & 0xff)) << 8;
 	return x;
 }
 
@@ -198,7 +198,7 @@ get_header_extra_RA(gz_stream *s, int slen)
 	ccount = get_int16(s);
 	slen -= 6;
 
-	if (ver != 1 || clen < 0 || ccount < 0 || 2 *  ccount != slen)
+	if (ver != 1 || clen < 0 || ccount < 0 || 2 * ccount != slen)
 		return -1;
 
 	s->ra_clen = clen;
@@ -226,7 +226,7 @@ get_header_extra(gz_stream *s, int elen)
 	int slen;
 	int SI1, SI2;
 
-	while(elen > 4) {
+	while (elen > 4) {
 		SI1 = get_byte(s);
 		SI2 = get_byte(s);
 		slen = get_int16(s);
@@ -325,7 +325,7 @@ get_header(gz_stream *s)
 static int
 gz_read(void *cookie, size_t off, char *out, size_t len)
 {
-	gz_stream *s = (gz_stream*)cookie;
+	gz_stream *s = (gz_stream *)cookie;
 	size_t chunk, z_off, cpylen;
 	int error = Z_OK;
 
@@ -345,7 +345,6 @@ gz_read(void *cookie, size_t off, char *out, size_t len)
 	s->z_stream.avail_out = s->ra_clen;
 
 	while (error == Z_OK && !s->z_eof && s->z_stream.avail_out != 0) {
-
 		if (s->z_stream.avail_in == 0)
 			break;
 
@@ -381,7 +380,7 @@ gz_read(void *cookie, size_t off, char *out, size_t len)
 static int
 gz_close(void *cookie)
 {
-	gz_stream *s = (gz_stream*)cookie;
+	gz_stream *s = (gz_stream *)cookie;
 	int err = 0;
 
 	if (s == NULL)

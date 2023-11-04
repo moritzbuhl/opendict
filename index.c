@@ -54,7 +54,7 @@ index_validate(struct dc_index *idx, off_t db_size)
 	for (i = LOOKUP_MAX; i; i >>= 6)
 		b64len_max++;
 
-	for(i = 0; i < idx->size; i++) {
+	for (i = 0; i < idx->size; i++) {
 		c = idx->data[i];
 		if (c == '\t') {
 			if (tabs == 1 && b64chars > b64off_max)
@@ -131,7 +131,7 @@ index_parse_line(const char *line, struct dc_index_entry *e)
 	if (e->match_len > WORD_MAX)
 		e->match_len = WORD_MAX;
 	if (e->def_len > LOOKUP_MAX)
-		e->def_len =  LOOKUP_MAX;
+		e->def_len = LOOKUP_MAX;
 
 	return e;
 }
@@ -244,7 +244,6 @@ static int
 index_find(const char *req, const struct dc_index *idx,
     struct dc_index_list *list, int (*compar)(const char *, const char *))
 {
-
 	const char *p;
 	struct dc_index_entry *e = SLIST_FIRST(list);
 	int r = 0;
