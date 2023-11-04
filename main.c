@@ -183,5 +183,5 @@ main(int argc, char *argv[])
 			define(&db, &list);
 	}
 
-	return EXIT_SUCCESS;
+	return 0;
 }
