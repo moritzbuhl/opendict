@@ -148,12 +148,6 @@ main(int argc, char *argv[])
 	if (pledge("stdio", NULL) == -1)
 		return 1;
 
-	SLIST_INIT(&list);
-	if ((res = calloc(MAX_RESULTS, sizeof(struct dc_index_entry))) == NULL)
-		return 1;
-	for (i = 0; i < MAX_RESULTS; i++)
-		SLIST_INSERT_HEAD(&list, &res[i], entries);
-
 	if (database_open(db_fd, &db) == -1)
 		errx(1, "cannot open dictionary '%s'", db_path);
 
@@ -162,6 +156,12 @@ main(int argc, char *argv[])
 
 	if (!Vflag && index_validate(&db.index, db.size) == -1)
 		errx(1, "index '%s' failed validation", idx_path);
+
+	SLIST_INIT(&list);
+	if ((res = calloc(MAX_RESULTS, sizeof(struct dc_index_entry))) == NULL)
+		return 1;
+	for (i = 0; i < MAX_RESULTS; i++)
+		SLIST_INSERT_HEAD(&list, &res[i], entries);
 
 	for (i = 0; i < argc; i++) {
 		if ((lookup = strdup(argv[i])) == NULL)
