@@ -101,7 +101,7 @@ static const u_char gz_magic[2] = {0x1f, 0x8b}; /* gzip magic header */
 static u_int16_t get_int16(gz_stream *);
 static int get_header(gz_stream *);
 static int get_byte(gz_stream *);
-static void *gz_ropen(int);
+static gz_stream *gz_ropen(int);
 static int gz_read(void *, size_t, char *, size_t);
 static int gz_close(void *);
 
@@ -127,7 +127,7 @@ database_lookup(struct dc_index_entry *req, struct dc_database *db, char *out)
 	return req->def_len;
 }
 
-static void *
+static gz_stream *
 gz_ropen(int fd)
 {
 	struct stat sb;
