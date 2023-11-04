@@ -103,9 +103,3 @@ Define all words starting with 'manual' in the 'eng-deu' dictionary:
 # SEE ALSO
 
 gzip(1)
-
-# AUTHORS
-
-Moritz Buhl &lt;[mbuhl@openbsd.org](mailto:mbuhl@openbsd.org)&gt;
-
-OpenBSD 7.4 - October 24, 2023
