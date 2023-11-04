@@ -15,8 +15,8 @@
  */
 
 #include <sys/mman.h>
-#include <sys/stat.h>
 #include <sys/queue.h>
+#include <sys/stat.h>
 
 #include <err.h>
 #include <stdint.h>

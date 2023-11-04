@@ -63,16 +63,16 @@
 #include <sys/queue.h>
 #include <sys/stat.h>
 
+#include <errno.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h>
 
 #include <zlib.h>
 
-#include "dict.h"
 #include "database.h"
+#include "dict.h"
 
 /* gzip flag byte */
 #define ASCII_FLAG   0x01 /* bit 0 set: file probably ascii text */
