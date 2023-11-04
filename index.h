@@ -14,6 +14,9 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+struct dc_index;
+struct dc_index_list;
+
 int index_open(int, struct dc_index *);
 int index_validate(struct dc_index *, off_t);
 int index_exact_find(const char *, const struct dc_index *,

@@ -71,8 +71,8 @@
 
 #include <zlib.h>
 
-#include "dict.h"
 #include "database.h"
+#include "dict.h"
 
 /* gzip flag byte */
 #define ASCII_FLAG   0x01 /* bit 0 set: file probably ascii text */
