@@ -1,9 +1,9 @@
-#DEBUG=	-g -DDEBUG=3 -O0
-CFLAGS+= -Wall -I${.CURDIR}
+CFLAGS +=	-Wall
+LDADD +=	-lz
+DPADD +=	${LIBZ}
 
-PROG = dict
-SRCS = main.c index.c database.c
-LDADD+=	-lz
-DPADD+= ${LIBZ}
+PROG =	dict
+SRCS =	main.c index.c database.c
+MAN =	dict.1
 
 .include <bsd.prog.mk>

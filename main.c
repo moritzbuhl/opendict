@@ -135,13 +135,13 @@ main(int argc, char *argv[])
 		mflag = 1;
 
 	if (unveil("/usr/local/freedict", "r") == -1)
-		err(1, "unveil");
+		return 1;
 	if (pledge("stdio rpath", NULL) == -1)
-		err(1, "pledge");
+		return 1;
 
 	SLIST_INIT(&list);
 	if ((res = calloc(MAX_RESULTS, sizeof(struct dc_index_entry))) == NULL)
-		err(1, "calloc");
+		return 1;
 	for (i = 0; i < MAX_RESULTS; i++)
 		SLIST_INSERT_HEAD(&list, &res[i], entries);
 
@@ -152,14 +152,14 @@ main(int argc, char *argv[])
 		err(1, "cannot open index '%s'", idx_path);
 
 	if (pledge("stdio", NULL) == -1)
-		err(1, "pledge");
+		return 1;
 
 	if (!Vflag && index_validate(&db.index, db.size) == -1)
 		errx(1, "index '%s' failed validation", idx_path);
 
 	for (i = 0; i < argc; i++) {
 		if ((lookup = strdup(argv[i])) == NULL)
-			err(1, "strdup");
+			return 1;
 		for (ch = 0; lookup[ch] != '\0'; ch++)
 			lookup[ch] = tolower(lookup[ch]);
 
