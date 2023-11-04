@@ -8,7 +8,7 @@ CFLAGS +=	-DEFTYPE=EBADF -D__dead="__attribute__((__noreturn__))"
 LDFLAGS =	-lz
 
 PROG =	dict
-SRCS =	main.c index.c database.c
+SRCS =	dict.c index.c database.c
 MAN =	dict.1
 
 $(PROG): $(SRCS)
