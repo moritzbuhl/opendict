@@ -14,5 +14,5 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-int database_open(char *, struct dc_database *);
+int database_open(int, struct dc_database *);
 int database_lookup(struct dc_index_entry *, struct dc_database *, char *);

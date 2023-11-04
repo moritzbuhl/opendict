@@ -19,6 +19,7 @@
 
 #include <ctype.h>
 #include <err.h>
+#include <fcntl.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -95,7 +96,7 @@ main(int argc, char *argv[])
 	struct dc_index_entry *res;
 	char *db_path = NULL, *idx_path = NULL;
 	char *lookup, *dictpath;
-	int ch, i;
+	int ch, i, db_fd, idx_fd;
 	int Vflag = 0, dflag = 0, eflag = 0, mflag = 0;
 
 	if ((dictpath = getenv("DICT_PATH")) == NULL)
@@ -139,20 +140,25 @@ main(int argc, char *argv[])
 	if (pledge("stdio rpath", NULL) == -1)
 		return 1;
 
+	if ((db_fd = open(db_path, O_RDONLY)) == -1)
+		err(1, "cannot open dictionary '%s'", db_path);
+	if ((idx_fd = open(idx_path, O_RDONLY)) == -1)
+		err(1, "cannot open index '%s'", idx_path);
+
+	if (pledge("stdio", NULL) == -1)
+		return 1;
+
 	SLIST_INIT(&list);
 	if ((res = calloc(MAX_RESULTS, sizeof(struct dc_index_entry))) == NULL)
 		return 1;
 	for (i = 0; i < MAX_RESULTS; i++)
 		SLIST_INSERT_HEAD(&list, &res[i], entries);
 
-	if (database_open(db_path, &db) == -1)
+	if (database_open(db_fd, &db) == -1)
 		errx(1, "cannot open dictionary '%s'", db_path);
 
-	if (index_open(idx_path, &db.index) == -1)
+	if (index_open(idx_fd, &db.index) == -1)
 		err(1, "cannot open index '%s'", idx_path);
-
-	if (pledge("stdio", NULL) == -1)
-		return 1;
 
 	if (!Vflag && index_validate(&db.index, db.size) == -1)
 		errx(1, "index '%s' failed validation", idx_path);

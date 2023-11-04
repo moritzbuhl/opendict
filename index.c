@@ -19,7 +19,6 @@
 #include <sys/queue.h>
 
 #include <err.h>
-#include <fcntl.h>
 #include <stdint.h>
 #include <string.h>
 
@@ -27,13 +26,10 @@
 #include "index.h"
 
 int
-index_open(char *path, struct dc_index *idx)
+index_open(int fd, struct dc_index *idx)
 {
 	struct stat sb;
-	int fd;
 
-	if ((fd = open(path, O_RDONLY)) == -1)
-		return -1;
 	if (fstat(fd, &sb) == -1)
 		return -1;
 	idx->size = sb.st_size;

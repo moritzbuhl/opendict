@@ -68,7 +68,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include <fcntl.h>
 
 #include <zlib.h>
 
@@ -102,15 +101,15 @@ static const u_char gz_magic[2] = {0x1f, 0x8b}; /* gzip magic header */
 static u_int16_t get_int16(gz_stream *);
 static int get_header(gz_stream *);
 static int get_byte(gz_stream *);
-static void *gz_ropen(char *);
+static void *gz_ropen(int);
 static int gz_read(void *, size_t, char *, size_t);
 static int gz_close(void *);
 
 int
-database_open(char *path, struct dc_database *db)
+database_open(int fd, struct dc_database *db)
 {
 	gz_stream *s;
-	if((s = gz_ropen(path)) == NULL)
+	if((s = gz_ropen(fd)) == NULL)
 		return -1;
 
 	db->data = s;
@@ -129,27 +128,24 @@ database_lookup(struct dc_index_entry *req, struct dc_database *db, char *out)
 }
 
 static void *
-gz_ropen(char *path)
+gz_ropen(int fd)
 {
 	struct stat sb;
 	gz_stream *s;
-	int fd = -1;
 
 	if ((s = calloc(1, sizeof(gz_stream))) == NULL)
 		return NULL;
 
 	if (inflateInit2(&(s->z_stream), -MAX_WBITS) != Z_OK)
-		goto fail1;
+		goto fail;
 
-	if ((fd = open(path, O_RDONLY)) == -1)
-		goto fail1;
 	if (fstat(fd, &sb) == -1)
-		goto fail2;
+		goto fail;
 	s->z_buflen = sb.st_size;
 
 	s->z_buf = mmap(NULL, s->z_buflen, PROT_READ, MAP_PRIVATE, fd, 0);
 	if (s->z_buf == MAP_FAILED)
-		goto fail2;
+		goto fail;
 
 	s->z_stream.avail_in = s->z_buflen;
 	s->z_stream.next_in = s->z_buf;
@@ -162,9 +158,7 @@ gz_ropen(char *path)
 
 	return s;
 
- fail2:
-	close(fd);
- fail1:
+ fail:
 	free(s);
 	return NULL;
 }
