@@ -15,8 +15,8 @@ $(PROG): $(SRCS)
 	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) $(LDFLAGS)
 
 install: $(PROG) $(MAN)
-	$(INSTALL) -m 555 $(PROG) $(BIN_DIR)
-	$(INSTALL) -m 444 $(MAN) $(MAN_DIR)
+	install -m 555 $(PROG) $(BIN_DIR)
+	install -m 444 $(MAN) $(MAN_DIR)
 
 clean:
 	rm -f $(PROG)
