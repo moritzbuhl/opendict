@@ -352,10 +352,10 @@ gz_read(void *cookie, size_t off, char *out, size_t len)
 
 		if (error == Z_DATA_ERROR) {
 			errno = EINVAL;
-			goto bad;
+			return -1;
 		} else if (error == Z_BUF_ERROR) {
 			errno = EIO;
-			goto bad;
+			return -1;
 		} else if (error == Z_STREAM_END) {
 			s->z_eof = 1;
 			inflateReset(&(s->z_stream)); // XXX
@@ -373,8 +373,6 @@ gz_read(void *cookie, size_t off, char *out, size_t len)
 		goto again;
 
 	return 0;
- bad:
-	return -1;
 }
 
 static int
