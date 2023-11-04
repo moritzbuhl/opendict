@@ -26,8 +26,8 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "database.h"
 #include "dict.h"
+#include "database.h"
 #include "index.h"
 
 #define MAX_RESULTS	1000
