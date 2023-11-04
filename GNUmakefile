@@ -1,4 +1,4 @@
-.PHONY: all clean install
+.PHONY: clean install
 
 BIN_DIR ?=	/usr/local/bin
 MAN_DIR ?=	/usr/share/man/man1
